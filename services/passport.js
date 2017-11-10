@@ -9,9 +9,8 @@ passport.serializeUser((user, done) => {
   done(null, user.id);
 });
 
-passport.deserializeUser((id, done)=>{
-  User.findById(id)
-    .then((user) => done(null, user));
+passport.deserializeUser((id, done) => {
+  User.findById(id).then(user => done(null, user));
 });
 
 passport.use(
@@ -21,16 +20,14 @@ passport.use(
       clientSecret: keys.googleClientSecret,
       callbackURL: "/auth/google/callback"
     },
-    (accessToken, refreshToken, profile, done) => {
-      User.findOne({ googleId: profile.id }).then(user => {
-        if (user) {
-          done(null, user);
-        } else {
-          new User({ googleId: profile.id })
-            .save()
-            .then(newUser => done(null, newUser));
-        }
-      });
+    async (accessToken, refreshToken, profile, done) => {
+      const user = await User.findOne({ googleId: profile.id });
+      if (user) {
+        return done(null, user);
+      } 
+      
+       const newUser = await new User({ googleId: profile.id }).save();
+       done(null, newUser);
     }
   )
 ); //instance of passport google strategy

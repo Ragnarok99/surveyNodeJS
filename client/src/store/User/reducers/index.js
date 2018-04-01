@@ -5,7 +5,7 @@ const User = (state = {}, action) => {
     case types.FETCH_USER_SUCCESS:
       return {
         ...state,
-        ...action.payload
+        ...action.payload.data
       };
     default:
       return state;

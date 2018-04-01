@@ -6,7 +6,7 @@ export const fetchUser = () => {
   };
 };
 
-export const fetchUserSuccess = ({data}) => {
+export const fetchUserSuccess = (data) => {
   return {
     type: types.FETCH_USER_SUCCESS,
     payload: {

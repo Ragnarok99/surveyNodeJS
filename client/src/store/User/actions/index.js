@@ -6,6 +6,13 @@ export const fetchUser = () => {
   };
 };
 
+export const addCredits = token => {
+  return {
+    type: types.ADD_CREDITS,
+    payload: token
+  }
+}
+
 export const fetchUserSuccess = (data) => {
   return {
     type: types.FETCH_USER_SUCCESS,
